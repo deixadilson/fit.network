@@ -1,0 +1,40 @@
+<template>
+  <div id="calendar">
+    <div v-for="(day, index) in days" :key="index" :class="day.classes" @click.self="openModal(day)">
+      {{ day.day }}
+      <div v-for="(session, index) in day.sessions" :key="index" class="session">
+        <NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink>
+      </div>
+    </div>
+    <AddSession v-if="showAddSession"/>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['days'],
+    computed: {
+      showAddSession() {
+        return this.$store.state.showAddSession;
+      }
+    },
+    methods: {
+      openModal(day) {
+        if(day.date) {
+          this.$store.commit('setClicked', day.date);
+          this.$store.commit('setShowAddSession', true);
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .session {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #ccc;
+    padding: 0 5px;
+    margin-bottom: 3px;
+  }
+</style>
