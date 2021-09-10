@@ -21,7 +21,7 @@
     methods: {
       openModal(day) {
         if(day.date) {
-          this.$store.commit('setClicked', day.date);
+          this.$store.commit('setRef', day.date);
           this.$store.commit('setShowAddSession', true);
         }
       }

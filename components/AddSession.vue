@@ -12,7 +12,7 @@
       </div>
       <div>
         <label for="date">Date</label>
-        <input type="text" id="date" name="date" v-model="clicked" required disabled/>
+        <input type="text" id="date" name="date" v-model="ref" required disabled/>
       </div>
       <div>
         <label for="time">Start time</label>
@@ -32,8 +32,8 @@
 <script>
   export default {
     computed: {
-      clicked() {
-        return this.$store.state.clicked;
+      ref() {
+        return this.$store.state.ref;
       }
     },
     methods: {

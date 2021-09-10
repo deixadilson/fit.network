@@ -3,15 +3,28 @@ export const state = () => ({
   sets: [],
   showAddSession: false,
   showAddSet: false,
-  clicked: null
+  showDeleteSet: false,
+  ref: null
 });
 
 export const mutations = {
   addSession(state, session) {
     state.sessions.push(session);
+    localStorage.setItem('sessions', JSON.stringify(state.sessions));
+  },
+  loadSessions(state, sessions) {
+    state.sessions = sessions;
   },
   addSet(state, set) {
     state.sets.push(set);
+    localStorage.setItem('sets', JSON.stringify(state.sets));
+  },
+  deleteSet(state, id) {
+    state.sets = state.sets.filter(set => set.id != id);
+    localStorage.setItem('sets', JSON.stringify(state.sets));
+  },
+  loadSets(state, sets) {
+    state.sets = sets;
   },
   setShowAddSession(state, flag) {
     state.showAddSession = flag;
@@ -19,8 +32,11 @@ export const mutations = {
   setShowAddSet(state, flag) {
     state.showAddSet = flag;
   },
-  setClicked(state, value) {
-    state.clicked = value;
+  setShowDeleteSet(state, flag) {
+    state.showDeleteSet = flag;
+  },
+  setRef(state, value) {
+    state.ref = value;
   }
 }
 

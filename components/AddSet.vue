@@ -24,8 +24,8 @@
         <input type="text" id="comment" name="comment"/>
       </div>
       <button type="submit">Add Set</button>
-      <button type="button" @click="cancelAddingSet">Cancel</button>
-      <button type="button" @click="cancelAddingSet" class="close">&times;</button>
+      <button type="button" @click="cancel">Cancel</button>
+      <button type="button" @click="cancel" class="close">&times;</button>
     </form>
   </div>
 </template>
@@ -36,6 +36,7 @@
     methods: {
       addSet(e) {
         const set = {
+          id: Date.now(),
           session: e.target.session.value,
           exercise: e.target.exercise.value,
           weight: e.target.weight.value,
@@ -43,11 +44,10 @@
           rest: e.target.rest.value,
           comment: e.target.comment.value
         };
-        console.log(set);
         this.$store.commit('addSet', set);
         this.$store.commit('setShowAddSet', false);
       },
-      cancelAddingSet() {
+      cancel() {
         this.$store.commit('setShowAddSet', false);
       }
     }
