@@ -74,7 +74,7 @@
       },
       cancel() {
         this.$store.commit('setShowAddSet', false);
-        this.$store.commit('setRef', null);
+        this.$store.commit('setRef', '');
       }
     }
   }

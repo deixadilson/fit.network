@@ -2,14 +2,25 @@ export const state = () => ({
   sessions: [],
   sets: [],
   showAddSession: false,
+  showDeleteSession: false,
   showAddSet: false,
   showDeleteSet: false,
-  ref: null
+  ref: ''
 });
 
 export const mutations = {
   addSession(state, session) {
     state.sessions.push(session);
+    localStorage.setItem('sessions', JSON.stringify(state.sessions));
+  },
+  editSession(state, session) {
+    state.sessions.splice(state.sessions.findIndex(x => x.id == session.id), 1 , session);
+    localStorage.setItem('sessions', JSON.stringify(state.sessions));
+  },
+  deleteSession(state, id) {
+    state.sets = state.sets.filter(set => set.session != id);
+    state.sessions = state.sessions.filter(session => session.id != id);
+    localStorage.setItem('sets', JSON.stringify(state.sets));
     localStorage.setItem('sessions', JSON.stringify(state.sessions));
   },
   loadSessions(state, sessions) {
@@ -32,6 +43,9 @@ export const mutations = {
   },
   setShowAddSession(state, flag) {
     state.showAddSession = flag;
+  },
+  setShowDeleteSession(state, flag) {
+    state.showDeleteSession = flag;
   },
   setShowAddSet(state, flag) {
     state.showAddSet = flag;
