@@ -62,7 +62,8 @@
             dayList.push({
               classes: ['day','padding']
             });
-          }        }
+          }
+        }
         return dayList;
       }
     }
