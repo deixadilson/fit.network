@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <NuxtLink to="/">My sessions</NuxtLink>
     <NuxtLink to="/month">Montly View</NuxtLink>
   </div>

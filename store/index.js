@@ -19,6 +19,10 @@ export const mutations = {
     state.sets.push(set);
     localStorage.setItem('sets', JSON.stringify(state.sets));
   },
+  editSet(state, set) {
+    state.sets.splice(state.sets.findIndex(x => x.id === set.id), 1, set);
+    localStorage.setItem('sets', JSON.stringify(state.sets));
+  },
   deleteSet(state, id) {
     state.sets = state.sets.filter(set => set.id != id);
     localStorage.setItem('sets', JSON.stringify(state.sets));

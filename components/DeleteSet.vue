@@ -21,11 +21,11 @@
     methods: {
       deleteSet(id) {
         this.$store.commit('deleteSet', id);
-        let sets = this.$store.
-        this.$store.commit('setShowDeleteSet', false);
+        this.cancel();
       },
       cancel() {
         this.$store.commit('setShowDeleteSet', false);
+        this.$store.commit('setRef', null);
       }
     }
   }

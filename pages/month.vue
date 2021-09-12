@@ -1,6 +1,6 @@
 <template>
-  <div id="container">
-    <div id="header">
+  <div class="container">
+    <div class="header">
       <h2>{{ dateDisplay }}</h2>
       <div>
         <button @click="yearNav--">&laquo; Ano Anterior</button>
@@ -10,7 +10,7 @@
         <button @click="yearNav++">Próximo Ano &raquo;</button>
       </div>
     </div>
-    <div id="weekdays">
+    <div class="weekdays">
       <div>Domingo</div>
       <div>Segunda</div>
       <div>Terça</div>
@@ -51,18 +51,18 @@
         for(let i = 1; i <= paddingDays + daysInMonth; i++) {
           if (i > paddingDays) {
             let date = new Date(this.offset.getFullYear(), this.offset.getMonth(), i - paddingDays).toLocaleDateString();
+            let classes = this.monthNav === 0 && this.yearNav === 0 && this.today.getDate() == i - paddingDays ? ['day','today'] : ['day'];
             dayList.push({
               date: date,
               day: i - paddingDays,
               sessions: this.$store.getters.sessionsByDate(date),
-              classes: ['day']
+              classes: classes
             });
           } else {
             dayList.push({
               classes: ['day','padding']
             });
-          }
-        }
+          }        }
         return dayList;
       }
     }
@@ -70,20 +70,17 @@
 </script>
 
 <style>
-  #header {
+  .header {
     display: flex;
     justify-content: space-between;
   }
-  #header h2:first-letter {
+  .header h2:first-letter {
     text-transform: capitalize;
   }
-  #header div {
+  .header div {
     margin: 24px 5px 0;
   }
-  #container {
-    width: 100%;
-  }
-  #weekdays div {
+  .weekdays div {
     width: calc(100% / 7);
     text-align: center;
     font-weight: bold;  
@@ -97,6 +94,9 @@
     padding: 10px;
     height: 100px;
     float: left;
+  }
+  .today {
+    outline: 2px solid #000;
   }
   .day:not(.padding) {
     box-shadow: 0 0 5px #ccc;

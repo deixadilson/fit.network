@@ -39,7 +39,7 @@
     methods: {
       closeModal() {
         this.$store.commit('setShowAddSession', false);
-        this.$store.commit('setClicked', null);
+        this.$store.commit('setRef', null);
       },
       addSession(e) {
         const session = {
@@ -60,6 +60,7 @@
 <style scoped>
   form {
     position: absolute;
+    top: 50px;
     left: calc(50% - 250px);
     background: #fff;
     width: 500px;
