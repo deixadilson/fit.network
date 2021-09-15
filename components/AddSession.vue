@@ -13,8 +13,8 @@
       </div>-->
       <div>
         <label for="date">Date</label>
-        <input v-if="action == 'add'" type="text" id="date" name="date" v-model="ref" required disabled/>
-        <input v-else type="date" id="date" name="date" v-model="date"/>
+        <input v-if="/\d/.test(ref)" type="text" id="date" name="date" v-model="ref" required disabled/>
+        <input v-else type="date" id="date" name="date" v-model="date" required/>
       </div>
       <div>
         <label for="time">Start time</label>
