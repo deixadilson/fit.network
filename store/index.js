@@ -5,6 +5,7 @@ export const state = () => ({
   showDeleteSession: false,
   showAddSet: false,
   showDeleteSet: false,
+  action: '',
   ref: ''
 });
 
@@ -52,6 +53,9 @@ export const mutations = {
   },
   setShowDeleteSet(state, flag) {
     state.showDeleteSet = flag;
+  },
+  setAction(state, value) {
+    state.action = value;
   },
   setRef(state, value) {
     state.ref = value;

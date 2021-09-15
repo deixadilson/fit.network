@@ -22,6 +22,7 @@
       openModal(day) {
         if(day.date) {
           this.$store.commit('setRef', day.date);
+          this.$store.commit('setAction', 'Add');
           this.$store.commit('setShowAddSession', true);
         }
       }
@@ -36,5 +37,18 @@
     box-shadow: 1px 1px 2px #ccc;
     padding: 0 5px;
     margin-bottom: 3px;
+  }
+  .day {
+    box-sizing: border-box;
+    width: calc(100% / 7);
+    padding: 10px;
+    height: 100px;
+    float: left;
+  }
+  .today {
+    outline: 2px solid #000;
+  }
+  .day:not(.padding) {
+    box-shadow: 0 0 5px #ccc;
   }
 </style>

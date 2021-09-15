@@ -1,9 +1,8 @@
 <template>
   <div>
     <Overlay/>
-    <form @submit.prevent="addSet">
-      <h2 v-if="$store.state.ref">Edit Set</h2>
-      <h2 v-else>Add Set</h2>
+    <form>
+      <h2>{{ action }} Set</h2>
       <input type="hidden" name="session" v-model="session">
       <div>
         <label for="exercise">Exercise</label>
@@ -25,8 +24,8 @@
         <label for="comment">Comment</label>
         <input type="text" id="comment" name="comment" v-model="comment"/>
       </div>
-      <button type="button" v-if="$store.state.ref" @click="editSet">Edit Set</button>
-      <button  v-else type="submit">Add Set</button>
+      <button type="button" v-if="action == 'Add'" @click="addSet">Add Set</button>
+      <button type="button" v-if="action == 'Edit'" @click="editSet">Edit Set</button>
       <button type="button" @click="cancel">Cancel</button>
       <button type="button" @click="cancel" class="close">&times;</button>
     </form>
@@ -37,6 +36,7 @@
   export default {
     data() {
       return {
+        action: this.$store.state.action,
         session: this.$route.params.id,
         exercise: this.$store.state.ref?.exercise,
         weight: this.$store.state.ref?.weight,
@@ -57,7 +57,7 @@
           comment: this.comment
         };
         this.$store.commit('addSet', set);
-        this.$store.commit('setShowAddSet', false);
+        this.cancel();
       },
       editSet() {
         const set = {
@@ -74,6 +74,7 @@
       },
       cancel() {
         this.$store.commit('setShowAddSet', false);
+        this.$store.commit('setAction', '');
         this.$store.commit('setRef', '');
       }
     }

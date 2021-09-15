@@ -6,7 +6,7 @@
         <div>#</div>
         <div>Exercício</div>
         <div>Weight</div>
-        <div>Repetitions</div>
+        <div>Reps</div>
         <div>Rest Time</div>
         <div>Actions</div>
       </div>
@@ -16,13 +16,13 @@
         <div>{{ set.weight }} kg</div>
         <div>{{ set.reps }}</div>
         <div>{{ set.rest }} s</div>
-        <div class="actions">
+        <div>
           <button type="button" @click="editSet(set)" title="Edit Set">🖊</button>
-          <button type="button" @click="confirmDelete(set)" class="delete" title="Delete Set">❌</button>
+          <button type="button" @click="deleteSet(set)" class="delete" title="Delete Set">❌</button>
         </div>
         <div class="set-comment">{{ set.comment }}</div>
       </div>
-      <button @click="setShowAddSet(true)">Add Set</button>
+      <button @click="addSet">Add Set</button>
     </div>
     <AddSet v-if="showAddSet"/>
     <DeleteSet v-if="showDeleteSet"/>
@@ -51,14 +51,16 @@
       }
     },
     methods: {
-      setShowAddSet(flag) {
-        this.$store.commit('setShowAddSet', flag);
+      addSet() {
+        this.$store.commit('setAction', 'Add');
+        this.$store.commit('setShowAddSet', true);
       },
       editSet(set) {
         this.$store.commit('setRef', set);
+        this.$store.commit('setAction', 'Edit');
         this.$store.commit('setShowAddSet', true);
       },
-      confirmDelete(set) {
+      deleteSet(set) {
         this.$store.commit('setRef', set);
         this.$store.commit('setShowDeleteSet', true);
       }
@@ -67,20 +69,20 @@
 </script>
 
 <style scoped>
-.set {
-  display: grid;
-  width: 100%;
-  grid-template-columns: 20px auto 100px 100px 100px 100px;
-  margin-bottom: 20px;
-}
-.sets-header {
-  font-weight: bold;
-}
-.set-comment {
-  grid-area: 2 / 2 / 2 / 6;
-}
-.delete {
-  color: #f00;
-  font-weight: bold;
-}
+  .set {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 20px auto 100px 100px 100px 100px;
+    margin-bottom: 20px;
+  }
+  .sets-header {
+    font-weight: bold;
+  }
+  .set-comment {
+    grid-area: 2 / 2 / 2 / 6;
+  }
+  .delete {
+    color: #f00;
+    font-weight: bold;
+  }
 </style>

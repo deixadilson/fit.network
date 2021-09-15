@@ -1,9 +1,8 @@
 <template>
   <div>
     <Overlay/>
-    <form @submit.prevent="addSession">
-      <h2 v-if="typeof $store.state.ref == 'object'">Edit Session</h2>
-      <h2 v-else>Add Session</h2>
+    <form>
+      <h2>{{ action }} Session</h2>
       <div>
         <label for="title">Title</label>
         <input type="text" id="title" name="title" v-model="title" required/>
@@ -14,7 +13,7 @@
       </div>-->
       <div>
         <label for="date">Date</label>
-        <input v-if="/\d/.test(ref)" type="text" id="date" name="date" v-model="ref" required disabled/>
+        <input v-if="action == 'add'" type="text" id="date" name="date" v-model="ref" required disabled/>
         <input v-else type="date" id="date" name="date" v-model="date"/>
       </div>
       <div>
@@ -25,8 +24,9 @@
         <label for="duration">Duration</label>
         <input type="number" id="duration" name="duration" v-model="duration" min="0"/> minutes
       </div>
-      <button type="button" v-if="typeof $store.state.ref == 'object'" @click="editSession">Edit Session</button>
-      <button type="submit" v-else>Add Session</button>
+      <button type="button" v-if="action == 'Add'" @click="addSession">Add Session</button>
+      <button type="button" v-if="action == 'Edit'" @click="editSession">Edit Session</button>
+      <button type="button" v-if="action == 'Copy'" @click="copySession">Copy Session</button>
       <button type="button" @click="close">Cancel</button>
       <button type="button" @click="close" class="close">&times;</button>
     </form>
@@ -37,6 +37,8 @@
   export default {
     data() {
       return {
+        action: this.$store.state.action,
+        ref: this.$store.state.ref,
         id: this.$store.state.ref?.id,
         title: this.$store.state.ref?.title,
         date: this.$store.state.ref.date?.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$2-$1'),
@@ -44,14 +46,10 @@
         duration: this.$store.state.ref?.duration
       }
     },
-    computed: {
-      ref() {
-        return this.$store.state.ref;
-      }
-    },
     methods: {
       close() {
         this.$store.commit('setShowAddSession', false);
+        this.$store.commit('setAction', '');
         this.$store.commit('setRef', '');
       },
       addSession(e) {
@@ -78,6 +76,17 @@
           duration: this.duration
         }
         this.$store.commit('editSession', session);
+        this.close();
+      },
+      copySession() {
+        const session = {
+          id: Date.now(),
+          title: this.title,
+          date: this.date.replace(/(\d{4})-(\d\d)-(\d\d)/, '$3/$2/$1'),
+          time: this.time,
+          duration: this.duration
+        }
+        this.$store.commit('addSession', session);
         this.close();
       }
     }

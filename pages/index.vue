@@ -15,9 +15,10 @@
       <div>{{ session.date }}</div>
       <div>{{ session.time }}</div>
       <div>{{ session.duration }} minutes</div>
-      <div>
+      <div class="actions">
         <button type="button" @click="editSession(session)" title="Edit Session">🖊</button>
-        <button type="button" @click="confirmDelete(session)" title="Delete Session">❌</button>
+        <button type="button" @click="copySession(session)" title="Copy Session">⧉</button>
+        <button type="button" @click="deleteSession(session)" title="Delete Session">❌</button>
       </div>
     </div>
     <button type="button" @click="addSession">Add Session</button>
@@ -42,12 +43,19 @@
     methods: {
       addSession() {
         this.$store.commit('setShowAddSession', true);
+        this.$store.commit('setAction', 'Add');
       },
       editSession(session) {
         this.$store.commit('setRef', session);
+        this.$store.commit('setAction', 'Edit');
         this.$store.commit('setShowAddSession', true);
       },
-      confirmDelete(session) {
+      copySession(session) {
+        this.$store.commit('setRef', session);
+        this.$store.commit('setAction', 'Copy');
+        this.$store.commit('setShowAddSession', true);
+      },
+      deleteSession(session) {
         this.$store.commit('setRef', session);
         this.$store.commit('setShowDeleteSession', true);
       }
@@ -68,5 +76,9 @@
   }
   .sessions-header {
     font-weight: bold;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

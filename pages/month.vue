@@ -3,21 +3,21 @@
     <div class="header">
       <h2>{{ dateDisplay }}</h2>
       <div>
-        <button @click="yearNav--">&laquo; Ano Anterior</button>
-        <button @click="monthNav--">< Mês Anterior</button>
-        <button @click="yearNav = monthNav = 0">Mês Atual</button>
-        <button @click="monthNav++">Próximo Mês ></button>
-        <button @click="yearNav++">Próximo Ano &raquo;</button>
+        <button @click="yearNav--">&laquo; Ano -</button>
+        <button @click="monthNav--">< Mês -</button>
+        <button @click="yearNav = monthNav = 0">Hoje</button>
+        <button @click="monthNav++">+ Mês ></button>
+        <button @click="yearNav++">+ Ano &raquo;</button>
       </div>
     </div>
     <div class="weekdays">
-      <div>Domingo</div>
-      <div>Segunda</div>
-      <div>Terça</div>
-      <div>Quarta</div>
-      <div>Quinta</div>
-      <div>Sexta</div>
-      <div>Sábado</div>
+      <div>Dom</div>
+      <div>Seg</div>
+      <div>Ter</div>
+      <div>Qua</div>
+      <div>Qui</div>
+      <div>Sex</div>
+      <div>Sáb</div>
     </div>
     <MonthView :days="days"/>
   </div>
@@ -70,16 +70,15 @@
   }
 </script>
 
-<style>
+<style scoped>
   .header {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
   }
   .header h2:first-letter {
     text-transform: capitalize;
-  }
-  .header div {
-    margin: 24px 5px 0;
   }
   .weekdays div {
     width: calc(100% / 7);
@@ -87,19 +86,5 @@
     font-weight: bold;  
     line-height: 200%;
     float: left;
-  }
-  .day {
-    box-sizing: border-box;
-    width: calc(100% / 7 - 10px);
-    margin: 5px;
-    padding: 10px;
-    height: 100px;
-    float: left;
-  }
-  .today {
-    outline: 2px solid #000;
-  }
-  .day:not(.padding) {
-    box-shadow: 0 0 5px #ccc;
   }
 </style>
