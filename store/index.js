@@ -24,6 +24,18 @@ export const mutations = {
     localStorage.setItem('sets', JSON.stringify(state.sets));
     localStorage.setItem('sessions', JSON.stringify(state.sessions));
   },
+  copySession(state, session) {
+    let sets = state.sets.filter(set => set.session == session.id);
+
+    const newId = new Date();
+    
+    sets = sets.map(set => ({...set, session: newId}));
+    state.sets = state.sets.concat(sets);
+
+    session.id = newId;
+    state.sessions.push(session);
+    
+  },
   loadSessions(state, sessions) {
     state.sessions = sessions;
   },

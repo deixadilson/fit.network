@@ -80,13 +80,13 @@
       },
       copySession() {
         const session = {
-          id: Date.now(),
+          id: this.id,
           title: this.title,
           date: this.date.replace(/(\d{4})-(\d\d)-(\d\d)/, '$3/$2/$1'),
           time: this.time,
           duration: this.duration
         }
-        this.$store.commit('addSession', session);
+        this.$store.commit('copySession', session);
         this.close();
       }
     }
