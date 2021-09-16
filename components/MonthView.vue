@@ -21,7 +21,7 @@
     methods: {
       openModal(day) {
         if(day.date) {
-          this.$store.commit('setRef', day.date);
+          this.$store.commit('setRef', {date: day.date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$2-$1')});
           this.$store.commit('setAction', 'Add');
           this.$store.commit('setShowAddSession', true);
         }
@@ -50,5 +50,13 @@
   }
   .day:not(.padding) {
     box-shadow: 0 0 5px #ccc;
+  }
+  @media (max-width: 900px) {
+    #calendar {
+      font-size: 10px;
+    }
+    .day {
+      padding: 5px;
+    }
   }
 </style>

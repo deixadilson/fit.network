@@ -14,7 +14,7 @@
       <div><NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink></div>
       <div>{{ session.date }}</div>
       <div>{{ session.time }}</div>
-      <div>{{ session.duration }} minutes</div>
+      <div>{{ session.duration }} min</div>
       <div class="actions">
         <button type="button" @click="editSession(session)" title="Edit Session">🖊</button>
         <button type="button" @click="copySession(session)" title="Copy Session">⧉</button>
@@ -64,14 +64,22 @@
 </script>
 
 <style>
+  body {
+    font-family: sans-serif;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+  }
   .container {
     max-width: 1024px;
     margin: 0 auto;
+    padding: 0 5px;
   }
   .container > .session {
     display: grid;
-    width: 100%;
     grid-template-columns: 20px auto 100px 100px 100px 100px;
+    align-items: center;
     margin-bottom: 20px;
   }
   .sessions-header {
@@ -80,5 +88,14 @@
   .actions {
     display: flex;
     justify-content: space-between;
+  }
+  @media (max-width: 400px) {
+    .session {
+      font-size: 10px;
+    }
+    .container > .session {
+      grid-template-columns: 10px auto 55px 40px 60px 95px;
+      margin-bottom: 5px;
+    }
   }
 </style>

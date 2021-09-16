@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
-    <NuxtLink to="/">My sessions</NuxtLink>
-    <NuxtLink to="/month">Calendar View</NuxtLink>
+  <div class="wrapper">
+    <div class="container">
+      <NuxtLink to="/">My sessions</NuxtLink>
+      <NuxtLink to="/month">Calendar View</NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -18,3 +20,21 @@
     }
   }
 </script>
+
+<style scoped>
+  a {
+    color: #eee;
+    background: #555;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+  }
+  a:hover {
+    background: #777;
+  }
+  .wrapper {
+    background: #000;
+    padding: 10px 0;
+    box-shadow: 0 0 10px #555;
+  }
+</style>

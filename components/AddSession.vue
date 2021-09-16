@@ -13,8 +13,7 @@
       </div>-->
       <div>
         <label for="date">Date</label>
-        <input v-if="/\d/.test(ref)" type="text" id="date" name="date" v-model="ref" required disabled/>
-        <input v-else type="date" id="date" name="date" v-model="date" required/>
+        <input type="date" id="date" name="date" v-model="date" required/>
       </div>
       <div>
         <label for="time">Start time</label>
@@ -38,10 +37,9 @@
     data() {
       return {
         action: this.$store.state.action,
-        ref: this.$store.state.ref,
         id: this.$store.state.ref?.id,
         title: this.$store.state.ref?.title,
-        date: this.$store.state.ref.date?.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$2-$1'),
+        date: this.$store.state.ref?.date,
         time: this.$store.state.ref?.time,
         duration: this.$store.state.ref?.duration
       }
@@ -52,17 +50,14 @@
         this.$store.commit('setAction', '');
         this.$store.commit('setRef', '');
       },
-      addSession(e) {
-        let date = /\d{4}-\d\d-\d\d/.test(e.target.date.value) ?
-          e.target.date.value.replace(/(\d{4})-(\d\d)-(\d\d)/, '$3/$2/$1') :
-          e.target.date.value;
+      addSession() {
         const session = {
           id: Date.now(),
-          title: e.target.title.value,
-          //color: e.target.color.value,
-          date: date,
-          time: e.target.time.value,
-          duration: e.target.duration.value
+          title: this.title,
+          //color: this.color,
+          date: this.date.replace(/(\d{4})-(\d\d)-(\d\d)/, '$3/$2/$1'),
+          time: this.time,
+          duration: this.duration
         };
         this.$store.commit('addSession', session);
         this.close();
