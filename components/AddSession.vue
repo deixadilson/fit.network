@@ -2,32 +2,40 @@
   <div>
     <Overlay/>
     <form>
-      <h2>{{ action }} Session</h2>
-      <div>
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" v-model="title" required/>
-      </div>
-      <!--<div>
-        <label for="color">Color</label>
-        <input type="color" id="color" name="color" value="#00ffff" required/>
-      </div>-->
-      <div>
-        <label for="date">Date</label>
-        <input type="date" id="date" name="date" v-model="date" required/>
-      </div>
-      <div>
-        <label for="time">Start time</label>
-        <input type="time" id="time" name="time" v-model="time"/>
-      </div>
-      <div>
-        <label for="duration">Duration</label>
-        <input type="number" id="duration" name="duration" v-model="duration" min="0"/> minutes
-      </div>
-      <button type="button" v-if="action == 'Add'" @click="addSession">Add Session</button>
-      <button type="button" v-if="action == 'Edit'" @click="editSession">Edit Session</button>
-      <button type="button" v-if="action == 'Copy'" @click="copySession">Copy Session</button>
-      <button type="button" @click="close">Cancel</button>
-      <button type="button" @click="close" class="close">&times;</button>
+      <section>
+        <header>
+          <h2>{{ action }} Session</h2>
+        </header>
+        <main>
+          <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" v-model="title" required/>
+          </div>
+          <!--<div>
+            <label for="color">Color</label>
+            <input type="color" id="color" name="color" value="#00ffff" required/>
+          </div>-->
+          <div>
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" v-model="date" required/>
+          </div>
+          <div>
+            <label for="time">Start time</label>
+            <input type="time" id="time" name="time" v-model="time"/>
+          </div>
+          <div>
+            <label for="duration">Duration</label>
+            <input type="number" id="duration" name="duration" v-model="duration" min="0"/> minutes
+          </div>
+        </main>
+        <footer class="buttons">
+          <button type="button" v-if="action == 'Add'" @click="addSession">Add Session</button>
+          <button type="button" v-if="action == 'Edit'" @click="editSession">Edit Session</button>
+          <button type="button" v-if="action == 'Copy'" @click="copySession">Copy Session</button>
+          <button type="button" @click="close">Cancel</button>
+          <button type="button" @click="close" class="close">&times;</button>
+        </footer>
+      </section>
     </form>
   </div>
 </template>
@@ -93,20 +101,27 @@
     position: absolute;
     top: 50px;
     left: calc(50% - 250px);
-    background: #fff;
     width: 500px;
-    padding: 20px;
-    box-shadow: 0 10px 22px #666;
-    border-radius: 3px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  section {
+    box-shadow: 0 3px 5px #555;
   }
   h2 {
-    margin-top: 0;
+    margin: 0;
+  }
+  main {
+    padding: 10px 10px 0;
+    border-top: 1px solid #eee;
   }
   div {
     margin-bottom: 10px;
   }
   label {
     display: block;
+    font-size: 12px;
+    font-weight: bold;
   }
   input[name="duration"] {
     width: 50px;
@@ -115,5 +130,11 @@
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+  @media (max-width: 500px) {
+    form {
+      left: calc(50% - 150px);
+      width: 300px;
+    }
   }
 </style>

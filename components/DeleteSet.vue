@@ -2,11 +2,17 @@
   <div>
     <Overlay/>
     <form @submit.prevent="deleteSet(set.id)">
-      <h2>Delete Set</h2>
-      <div>Are you sure you want to delete <b>{{ set.exercise }}</b> set?</div>
-      <button type="submit">Delete Set</button>
-      <button type="button" @click="cancel">Cancel</button>
-      <button type="button" @click="cancel" class="close">&times;</button>
+      <section>
+        <header>
+          <h2>Delete Set</h2>
+        </header>
+        <main>Are you sure you want to delete <b>{{ set.exercise }}</b> set?</main>
+        <footer class="buttons">
+          <button type="submit">Delete Set</button>
+          <button type="button" @click="cancel">Cancel</button>
+          <button type="button" @click="cancel" class="close">&times;</button>
+        </footer>
+      </section>
     </form>
   </div>
 </template>
@@ -34,22 +40,31 @@
 <style scoped>
   form {
     position: absolute;
+    top: 50px;
     left: calc(50% - 250px);
-    background: #fff;
     width: 500px;
-    padding: 20px;
-    box-shadow: 0 10px 22px #666;
-    border-radius: 3px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  section {
+    box-shadow: 0 3px 5px #555;
   }
   h2 {
-    margin-top: 0;
+    margin: 0;
   }
-  div {
-    margin-bottom: 10px;
+  main {
+    padding: 10px;
+    border-top: 1px solid #eee;
   }
   .close {
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+  @media (max-width: 500px) {
+    form {
+      left: calc(50% - 150px);
+      width: 300px;
+    }
   }
 </style>

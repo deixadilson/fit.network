@@ -1,27 +1,31 @@
 <template>
   <div class="container">
     <h1>Session List</h1>
-    <div v-if="sessions.length" class="session sessions-header">
-      <div>#</div>
-      <div>Title</div>
-      <div>Date</div>
-      <div>Time</div>
-      <div>Duration</div>
-      <div>Actions</div>
-    </div>
-    <div v-for="(session, index) in sessions" :key="index" class="session">
-      <div>{{ index + 1 }}</div>
-      <div><NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink></div>
-      <div>{{ session.date }}</div>
-      <div>{{ session.time }}</div>
-      <div>{{ session.duration }} min</div>
-      <div class="actions">
-        <button type="button" @click="editSession(session)" title="Edit Session">🖊</button>
-        <button type="button" @click="copySession(session)" title="Copy Session">⧉</button>
-        <button type="button" @click="deleteSession(session)" title="Delete Session">❌</button>
-      </div>
-    </div>
-    <button type="button" @click="addSession">Add Session</button>
+    <section>
+      <header class="row">
+        <div>#</div>
+        <div>Title</div>
+        <div>Date</div>
+        <div>Time</div>
+        <div>Duration</div>
+        <div>Actions</div>
+      </header>
+      <main v-for="(session, index) in sessions" :key="index" class="row">
+        <div>{{ index + 1 }}</div>
+        <div><NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink></div>
+        <div>{{ session.date }}</div>
+        <div>{{ session.time }}</div>
+        <div>{{ session.duration }} min</div>
+        <div class="actions">
+          <button type="button" @click="editSession(session)" title="Edit Session">🖊</button>
+          <button type="button" @click="copySession(session)" title="Copy Session">⧉</button>
+          <button type="button" @click="deleteSession(session)" title="Delete Session">❌</button>
+        </div>
+      </main>
+      <footer class="buttons">
+        <button type="button" @click="addSession">Add Session</button>
+      </footer>
+    </section>
     <AddSession v-if="showAddSession"/>
     <DeleteSession v-if="showDeleteSession"/>
   </div>
@@ -71,31 +75,46 @@
   a {
     text-decoration: none;
   }
+  section {
+    box-shadow: 0 3px 5px #ccc;
+    border-radius: 10px;
+  }
   .container {
     max-width: 1024px;
     margin: 0 auto;
     padding: 0 5px;
   }
-  .container > .session {
+  section > .row {
     display: grid;
     grid-template-columns: 20px auto 100px 100px 100px 100px;
     align-items: center;
-    margin-bottom: 20px;
+    border-top: 1px solid #eee;
+    padding: 5px 10px;
   }
-  .sessions-header {
+  header {
+    padding-top: 10px;
+  }
+  section > header, .buttons {
     font-weight: bold;
+    padding: 10px 10px 6px;
+    border-radius: 10px 10px 0 0;
+    background: #fcfcfc;
   }
   .actions {
     display: flex;
     justify-content: space-between;
   }
-  @media (max-width: 400px) {
-    .session {
+  .buttons {
+    border-radius: 0 0 10px 10px;
+    padding: 5px 10px 10px;
+    border-top: 1px solid #eee;
+  }
+  @media (max-width: 600px) {
+    .row {
       font-size: 10px;
     }
-    .container > .session {
+    section > .row {
       grid-template-columns: 10px auto 55px 40px 60px 95px;
-      margin-bottom: 5px;
     }
   }
 </style>

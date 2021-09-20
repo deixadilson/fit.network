@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <h2>{{ session.title }} {{ session.date }} {{ session.time }}</h2>
-    <div>
-      <div v-if="sets.length" class="set sets-header">
+    <section>
+      <header class="row">
         <div>#</div>
         <div>Exercício</div>
         <div>Weight</div>
         <div>Reps</div>
         <div>Rest Time</div>
         <div>Actions</div>
-      </div>
-      <div v-for="(set, index) in sets" class="set">
+      </header>
+      <main v-for="(set, index) in sets" class="row">
         <div>{{ index + 1 }}</div>
         <div>{{ set.exercise }}</div>
         <div>{{ set.weight }} kg</div>
@@ -21,9 +21,11 @@
           <button type="button" @click="deleteSet(set)" class="delete" title="Delete Set">❌</button>
         </div>
         <div class="set-comment">{{ set.comment }}</div>
-      </div>
-      <button @click="addSet">Add Set</button>
-    </div>
+      </main>
+      <footer class="buttons">
+        <button @click="addSet">Add Set</button>
+      </footer>
+    </section>
     <AddSet v-if="showAddSet"/>
     <DeleteSet v-if="showDeleteSet"/>
   </div>
@@ -69,15 +71,6 @@
 </script>
 
 <style scoped>
-  .set {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 20px auto 100px 100px 100px 100px;
-    margin-bottom: 20px;
-  }
-  .sets-header {
-    font-weight: bold;
-  }
   .set-comment {
     grid-area: 2 / 2 / 2 / 6;
   }
