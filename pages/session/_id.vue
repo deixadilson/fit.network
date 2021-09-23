@@ -10,17 +10,19 @@
         <div>Rest Time</div>
         <div>Actions</div>
       </header>
-      <main v-for="(set, index) in sets" class="row">
-        <div>{{ index + 1 }}</div>
-        <div>{{ set.exercise }}</div>
-        <div>{{ set.weight }} kg</div>
-        <div>{{ set.reps }}</div>
-        <div>{{ set.rest }} s</div>
-        <div>
-          <button type="button" @click="editSet(set)" title="Edit Set">🖊</button>
-          <button type="button" @click="deleteSet(set)" class="delete" title="Delete Set">❌</button>
+      <main>
+        <div v-for="set in sets" :key="set.id" class="row" @drop.prevent="drop($event, set.id - 1)" @dragover.prevent @dragenter.prevent>
+          <div>{{ set.id }}</div>
+          <div draggable="true" @dragstart="drag($event, set.id - 1)">{{ set.exercise }}</div>
+          <div>{{ set.weight }} kg</div>
+          <div>{{ set.reps }}</div>
+          <div>{{ set.rest }} s</div>
+          <div>
+            <button type="button" @click="editSet(set)" title="Edit Set">🖊</button>
+            <button type="button" @click="deleteSet(set)" title="Delete Set">❌</button>
+          </div>
+          <div class="set-comment">{{ set.comment }}</div>
         </div>
-        <div class="set-comment">{{ set.comment }}</div>
       </main>
       <footer class="buttons">
         <button @click="addSet">Add Set</button>
@@ -65,6 +67,13 @@
       deleteSet(set) {
         this.$store.commit('setRef', set);
         this.$store.commit('setShowDeleteSet', true);
+      },
+      drag(e, id) {
+        e.dataTransfer.setData('dragged', id);
+      },
+      drop(e, id) {
+        const dragged = e.dataTransfer.getData('dragged');
+        this.$store.commit('orderSets', { sessionId: this.session.id, a: dragged, b: id });
       }
     }
   }
@@ -73,9 +82,5 @@
 <style scoped>
   .set-comment {
     grid-area: 2 / 2 / 2 / 6;
-  }
-  .delete {
-    color: #f00;
-    font-weight: bold;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Overlay/>
-    <form @submit.prevent="deleteSet(set.id)">
+    <form @submit.prevent="deleteSet(set)">
       <section>
         <header>
           <h2>Delete Set</h2>
@@ -25,8 +25,8 @@
       }
     },
     methods: {
-      deleteSet(id) {
-        this.$store.commit('deleteSet', id);
+      deleteSet(set) {
+        this.$store.commit('deleteSet', set);
         this.cancel();
       },
       cancel() {

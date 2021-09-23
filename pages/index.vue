@@ -10,16 +10,18 @@
         <div>Duration</div>
         <div>Actions</div>
       </header>
-      <main v-for="(session, index) in sessions" :key="index" class="row">
-        <div>{{ index + 1 }}</div>
-        <div><NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink></div>
-        <div>{{ session.date }}</div>
-        <div>{{ session.time }}</div>
-        <div>{{ session.duration }} min</div>
-        <div class="actions">
-          <button type="button" @click="editSession(session)" title="Edit Session">🖊</button>
-          <button type="button" @click="copySession(session)" title="Copy Session">⧉</button>
-          <button type="button" @click="deleteSession(session)" title="Delete Session">❌</button>
+      <main>
+        <div v-for="(session, index) in sessions" :key="index" class="row">
+          <div>{{ index + 1 }}</div>
+          <div><NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink></div>
+          <div>{{ session.date }}</div>
+          <div>{{ session.time }}</div>
+          <div>{{ session.duration }} min</div>
+          <div class="actions">
+            <button type="button" @click="editSession(session)" title="Edit Session">🖊</button>
+            <button type="button" @click="copySession(session)" title="Copy Session">⧉</button>
+            <button type="button" @click="deleteSession(session)" title="Delete Session">❌</button>
+          </div>
         </div>
       </main>
       <footer class="buttons">
@@ -84,7 +86,7 @@
     margin: 0 auto;
     padding: 0 5px;
   }
-  section > .row {
+  .row {
     display: grid;
     grid-template-columns: 20px auto 100px 100px 100px 100px;
     align-items: center;
@@ -112,9 +114,7 @@
   @media (max-width: 600px) {
     .row {
       font-size: 10px;
-    }
-    section > .row {
-      grid-template-columns: 10px auto 55px 40px 60px 95px;
+      grid-template-columns: 10px auto 60px 40px 60px 95px;
     }
   }
 </style>

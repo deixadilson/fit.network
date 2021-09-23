@@ -56,7 +56,7 @@
     methods: {
       addSet() {
         const set = {
-          id: Date.now(),
+          id: this.$store.getters.setsInSession(this.session).length + 1,
           session: this.session,
           exercise: this.exercise,
           weight: this.weight,
