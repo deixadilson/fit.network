@@ -10,7 +10,7 @@
           <input type="hidden" name="session" v-model="session">
           <div>
             <label for="exercise">Exercise</label>
-            <input type="text" id="exercise" name="exercise" v-model="exercise"/>
+            <input type="text" id="exercise" name="exercise" v-model="exercise" required/>
           </div>
           <div>
             <label for="weight">Weight</label>
@@ -45,13 +45,16 @@
     data() {
       return {
         action: this.$store.state.action,
-        session: this.$route.params.id,
+        session: +this.$route.params.id,
         exercise: this.$store.state.ref?.exercise,
-        weight: this.$store.state.ref?.weight,
-        reps: this.$store.state.ref?.reps,
-        rest: this.$store.state.ref?.rest,
+        weight: +this.$store.state.ref?.weight,
+        reps: +this.$store.state.ref?.reps,
+        rest: +this.$store.state.ref?.rest,
         comment: this.$store.state.ref?.comment
       }
+    },
+    mounted() {
+      document.forms[0].exercise.focus();
     },
     methods: {
       addSet() {
@@ -81,7 +84,7 @@
         this.cancel();
       },
       cancel() {
-        this.$store.commit('setShowAddSet', false);
+        this.$store.commit('setShowModal', '');
         this.$store.commit('setAction', '');
         this.$store.commit('setRef', '');
       }

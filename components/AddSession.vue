@@ -49,12 +49,15 @@
         title: this.$store.state.ref?.title,
         date: this.$store.state.ref?.date,
         time: this.$store.state.ref?.time,
-        duration: this.$store.state.ref?.duration
+        duration: +this.$store.state.ref?.duration
       }
+    },
+    mounted() {
+      document.forms[0].title.focus();
     },
     methods: {
       close() {
-        this.$store.commit('setShowAddSession', false);
+        this.$store.commit('setShowModal', '');
         this.$store.commit('setAction', '');
         this.$store.commit('setRef', '');
       },
