@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <div class="container">
-      <NuxtLink to="/">My sessions</NuxtLink>
-      <NuxtLink to="/month">Calendar View</NuxtLink>
+      <NuxtLink to="/">Workouts</NuxtLink>
+      <NuxtLink to="/month">Calendar</NuxtLink>
     </div>
   </div>
 </template>

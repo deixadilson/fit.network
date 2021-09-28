@@ -30,7 +30,7 @@
         this.cancel();
       },
       cancel() {
-        this.$store.commit('setShowDeleteSet', false);
+        this.$store.commit('setShowModal', '');
         this.$store.commit('setRef', '');
       }
     }

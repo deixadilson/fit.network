@@ -1,10 +1,7 @@
 export const state = () => ({
   sessions: [],
   sets: [],
-  showAddSession: false,
-  showDeleteSession: false,
-  showAddSet: false,
-  showDeleteSet: false,
+  showModal: '',
   action: '',
   ref: ''
 });
@@ -42,11 +39,15 @@ export const mutations = {
     localStorage.setItem('sets', JSON.stringify(state.sets));
   },
   editSet(state, set) {
-    state.sets.splice(state.sets.findIndex(x => x.id === set.id && x.session === set.session), 1, set);
+    state.sets.splice(state.sets.findIndex(x => x.id == set.id && x.session == set.session), 1, set);
     localStorage.setItem('sets', JSON.stringify(state.sets));
   },
   deleteSet(state, set) {
-    state.sets = state.sets.filter(el => el.id != set.id && el.session != set.session);
+    let sets = state.sets.filter(x => x.session != set.session);
+    let session = state.sets.filter(x => x.session == set.session && x.id != set.id);
+    for (let i = 0; i < session.length; i++) session[i].id = i + 1;
+    sets = sets.concat(session);
+    state.sets = sets;
     localStorage.setItem('sets', JSON.stringify(state.sets));
   },
   orderSets(state, {sessionId, a, b}) {
@@ -62,17 +63,8 @@ export const mutations = {
   loadSets(state, sets) {
     state.sets = sets;
   },
-  setShowAddSession(state, flag) {
-    state.showAddSession = flag;
-  },
-  setShowDeleteSession(state, flag) {
-    state.showDeleteSession = flag;
-  },
-  setShowAddSet(state, flag) {
-    state.showAddSet = flag;
-  },
-  setShowDeleteSet(state, flag) {
-    state.showDeleteSet = flag;
+  setShowModal(state, modal) {
+    state.showModal = modal;
   },
   setAction(state, value) {
     state.action = value;

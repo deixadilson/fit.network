@@ -28,8 +28,8 @@
         <button @click="addSet">Add Set</button>
       </footer>
     </section>
-    <AddSet v-if="showAddSet"/>
-    <DeleteSet v-if="showDeleteSet"/>
+    <AddSet v-if="showModal == 'AddSet'"/>
+    <DeleteSet v-if="showModal == 'DeleteSet'"/>
   </div>
 </template>
 
@@ -47,26 +47,23 @@
       sets() {
         return this.$store.getters.setsInSession(this.session.id);
       },
-      showAddSet() {
-        return this.$store.state.showAddSet;
-      },
-      showDeleteSet() {
-        return this.$store.state.showDeleteSet;
+      showModal() {
+        return this.$store.state.showModal;
       }
     },
     methods: {
       addSet() {
         this.$store.commit('setAction', 'Add');
-        this.$store.commit('setShowAddSet', true);
+        this.$store.commit('setShowModal', 'AddSet');
       },
       editSet(set) {
         this.$store.commit('setRef', set);
         this.$store.commit('setAction', 'Edit');
-        this.$store.commit('setShowAddSet', true);
+        this.$store.commit('setShowModal', 'AddSet');
       },
       deleteSet(set) {
         this.$store.commit('setRef', set);
-        this.$store.commit('setShowDeleteSet', true);
+        this.$store.commit('setShowModal', 'DeleteSet');
       },
       drag(e, id) {
         e.dataTransfer.setData('dragged', id);

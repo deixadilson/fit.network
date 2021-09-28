@@ -28,8 +28,8 @@
         <button type="button" @click="addSession">Add Session</button>
       </footer>
     </section>
-    <AddSession v-if="showAddSession"/>
-    <DeleteSession v-if="showDeleteSession"/>
+    <AddSession v-if="showModal == 'AddSession'"/>
+    <DeleteSession v-if="showModal == 'DeleteSession'"/>
   </div>
 </template>
 
@@ -39,31 +39,28 @@
       sessions() {
         return this.$store.state.sessions;
       },
-      showAddSession() {
-        return this.$store.state.showAddSession;
-      },
-      showDeleteSession() {
-        return this.$store.state.showDeleteSession;
+      showModal() {
+        return this.$store.state.showModal;
       }
     },
     methods: {
       addSession() {
-        this.$store.commit('setShowAddSession', true);
+        this.$store.commit('setShowModal', 'AddSession');
         this.$store.commit('setAction', 'Add');
       },
       editSession(session) {
         this.$store.commit('setRef', session);
         this.$store.commit('setAction', 'Edit');
-        this.$store.commit('setShowAddSession', true);
+        this.$store.commit('setShowModal', 'AddSession');
       },
       copySession(session) {
         this.$store.commit('setRef', session);
         this.$store.commit('setAction', 'Copy');
-        this.$store.commit('setShowAddSession', true);
+        this.$store.commit('setShowModal', 'AddSession');
       },
       deleteSession(session) {
         this.$store.commit('setRef', session);
-        this.$store.commit('setShowDeleteSession', true);
+        this.$store.commit('setShowModal', 'DeleteSession');
       }
     }
   }
@@ -88,7 +85,7 @@
   }
   .row {
     display: grid;
-    grid-template-columns: 20px auto 100px 100px 100px 100px;
+    grid-template-columns: 20px auto 110px 100px 100px 100px;
     align-items: center;
     border-top: 1px solid #eee;
     padding: 5px 10px;

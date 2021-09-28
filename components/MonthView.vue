@@ -1,12 +1,12 @@
 <template>
   <div id="calendar">
-    <div v-for="(day, index) in days" :key="index" :class="day.classes" @click.self="openModal(day)">
+    <div v-for="(day, index) in days" :key="index" :class="day.classes" @click.self="addSet(day)">
       {{ day.day }}
       <div v-for="(session, index) in day.sessions" :key="index" class="session">
         <NuxtLink :to="`/session/${session.id}`">{{ session.title }}</NuxtLink>
       </div>
     </div>
-    <AddSession v-if="showAddSession"/>
+    <AddSession v-if="showModal == 'AddSet'"/>
   </div>
 </template>
 
@@ -14,16 +14,16 @@
   export default {
     props: ['days'],
     computed: {
-      showAddSession() {
-        return this.$store.state.showAddSession;
+      showModal() {
+        return this.$store.state.showModal;
       }
     },
     methods: {
-      openModal(day) {
+      addSet(day) {
         if(day.date) {
           this.$store.commit('setRef', {date: day.date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$2-$1')});
           this.$store.commit('setAction', 'Add');
-          this.$store.commit('setShowAddSession', true);
+          this.$store.commit('setShowModal', 'AddSet');
         }
       }
     }
