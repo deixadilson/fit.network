@@ -47,9 +47,9 @@
         action: this.$store.state.action,
         session: +this.$route.params.id,
         exercise: this.$store.state.ref?.exercise,
-        weight: this.$store.state.ref?.weight,
-        reps: this.$store.state.ref?.reps,
-        rest: this.$store.state.ref?.rest,
+        weight: +this.$store.state.ref?.weight,
+        reps: +this.$store.state.ref?.reps,
+        rest: +this.$store.state.ref?.rest,
         comment: this.$store.state.ref?.comment
       }
     },

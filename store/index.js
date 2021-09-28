@@ -51,8 +51,8 @@ export const mutations = {
     localStorage.setItem('sets', JSON.stringify(state.sets));
   },
   orderSets(state, {sessionId, a, b}) {
-    let sets = state.sets.filter(x => x.session != sessionId);
-    let session = state.sets.filter(x => x.session == sessionId);
+    let sets = state.sets.filter(x => x.session !== sessionId);
+    let session = state.sets.filter(x => x.session === sessionId);
     let [dragged] = session.splice(a,1);
     session.splice(b,0,dragged);
     for (let i = 0; i < session.length; i++) session[i].id = i + 1;
