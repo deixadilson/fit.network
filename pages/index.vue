@@ -49,7 +49,7 @@
         this.$store.commit('setAction', 'Add');
       },
       editSession(session) {
-        this.$store.commit('setRef', session);
+        this.$store.commit('setRef', { ...session, date: session.date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$2-$1') });
         this.$store.commit('setAction', 'Edit');
         this.$store.commit('setShowModal', 'AddSession');
       },
@@ -85,7 +85,7 @@
   }
   .row {
     display: grid;
-    grid-template-columns: 20px auto 110px 100px 100px 100px;
+    grid-template-columns: 30px auto 120px 100px 100px 100px;
     align-items: center;
     border-top: 1px solid #eee;
     padding: 5px 10px;

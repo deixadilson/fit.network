@@ -1,7 +1,7 @@
 <template>
   <div>
     <Overlay/>
-    <form>
+    <form @submit.prevent="submit">
       <section>
         <header>
           <h2>{{ action }} Set</h2>
@@ -30,8 +30,7 @@
           </div>
         </main>
         <footer class="buttons">
-          <button type="button" v-if="action == 'Add'" @click="addSet">Add Set</button>
-          <button type="button" v-if="action == 'Edit'" @click="editSet">Edit Set</button>
+          <button type="submit">{{ action }} Set</button>
           <button type="button" @click="cancel">Cancel</button>
           <button type="button" @click="cancel" class="close">&times;</button>
         </footer>
@@ -47,17 +46,23 @@
         action: this.$store.state.action,
         session: +this.$route.params.id,
         exercise: this.$store.state.ref?.exercise,
-        weight: +this.$store.state.ref?.weight,
-        reps: +this.$store.state.ref?.reps,
-        rest: +this.$store.state.ref?.rest,
+        weight: this.$store.state.ref?.weight,
+        reps: this.$store.state.ref?.reps,
+        rest: this.$store.state.ref?.rest,
         comment: this.$store.state.ref?.comment
+      }
+    },
+    computed: {
+      submit() {
+        if (this.action == 'Add') return this.add;
+        if (this.action == 'Edit') return this.edit;
       }
     },
     mounted() {
       document.forms[0].exercise.focus();
     },
     methods: {
-      addSet() {
+      add() {
         const set = {
           id: this.$store.getters.setsInSession(this.session).length + 1,
           session: this.session,
@@ -70,7 +75,7 @@
         this.$store.commit('addSet', set);
         this.cancel();
       },
-      editSet() {
+      edit() {
         const set = {
           id: this.$store.state.ref.id,
           session: this.session,

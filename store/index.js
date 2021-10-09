@@ -1,6 +1,7 @@
 export const state = () => ({
   sessions: [],
   sets: [],
+  measurements: [],
   showModal: '',
   action: '',
   ref: ''
@@ -63,6 +64,20 @@ export const mutations = {
   loadSets(state, sets) {
     state.sets = sets;
   },
+  addMeasurement(state, measurement) {
+    state.measurements.push(measurement);
+    localStorage.setItem('measurements', JSON.stringify(state.measurements));
+  },
+  editMeasurement(state, measurement) {
+    state.measurements.splice(state.measurements.findIndex(x => x.id == measurement.id), 1, measurement);
+    localStorage.setItem('measurements', JSON.stringify(state.measurements));
+  },
+  deleteMeasurement(state, id) {
+    state.measurements = state.measurements.filter(measurement => measurement.id != id);
+  },
+  loadMeasurements(state, measurements) {
+    state.measurements = measurements;
+  },
   setShowModal(state, modal) {
     state.showModal = modal;
   },
@@ -83,5 +98,8 @@ export const getters = {
   },
   setsInSession: (state) => (sessionId) => {
     return state.sets.filter(set => set.session == sessionId);
+  },
+  measurement: (state) => (id) => {
+    return state.measurements.find(measurement => measurement.id == id);
   }
 }

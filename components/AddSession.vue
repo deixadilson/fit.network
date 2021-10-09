@@ -1,7 +1,7 @@
 <template>
   <div>
     <Overlay/>
-    <form>
+    <form @submit.prevent="submit">
       <section>
         <header>
           <h2>{{ action }} Session</h2>
@@ -25,13 +25,11 @@
           </div>
           <div>
             <label for="duration">Duration</label>
-            <input type="number" id="duration" name="duration" v-model="duration" min="0"/> minutes
+            <input type="number" id="duration" name="duration" v-model.number="duration" min="0"/> minutes
           </div>
         </main>
         <footer class="buttons">
-          <button type="button" v-if="action == 'Add'" @click="addSession">Add Session</button>
-          <button type="button" v-if="action == 'Edit'" @click="editSession">Edit Session</button>
-          <button type="button" v-if="action == 'Copy'" @click="copySession">Copy Session</button>
+          <button type="submit">{{ action }} Session</button>
           <button type="button" @click="close">Cancel</button>
           <button type="button" @click="close" class="close">&times;</button>
         </footer>
@@ -52,6 +50,13 @@
         duration: +this.$store.state.ref?.duration
       }
     },
+    computed: {
+      submit() {
+        if (this.action == 'Add') return this.add;
+        if (this.action == 'Edit') return this.edit;
+        if (this.action == 'Copy') return this.copy;
+      }
+    },
     mounted() {
       document.forms[0].title.focus();
     },
@@ -61,7 +66,7 @@
         this.$store.commit('setAction', '');
         this.$store.commit('setRef', '');
       },
-      addSession() {
+      add() {
         const session = {
           id: Date.now(),
           title: this.title,
@@ -73,7 +78,7 @@
         this.$store.commit('addSession', session);
         this.close();
       },
-      editSession() {
+      edit() {
         const session = {
           id: this.$store.state.ref.id,
           title: this.title,
@@ -84,7 +89,7 @@
         this.$store.commit('editSession', session);
         this.close();
       },
-      copySession() {
+      copy() {
         const session = {
           id: this.id,
           title: this.title,

@@ -3,6 +3,7 @@
     <div class="container">
       <NuxtLink to="/">Workouts</NuxtLink>
       <NuxtLink to="/month">Calendar</NuxtLink>
+      <NuxtLink to="/measurements">Measurements</NuxtLink>
     </div>
   </div>
 </template>
@@ -16,6 +17,9 @@
 
         const sets = JSON.parse(localStorage.getItem('sets')) || [];
         this.$store.commit('loadSets', sets);
+
+        const measurements = JSON.parse(localStorage.getItem('measurements'));
+        this.$store.commit('loadMeasurements', measurements);
       }
     }
   }

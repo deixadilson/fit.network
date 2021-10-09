@@ -37,11 +37,8 @@
   export default {
     data() {
       return {
-        session: ''
+        session: this.$store.getters.session(this.$route.params.id)
       }
-    },
-    mounted() {
-      this.session = this.$store.getters.session(this.$route.params.id);
     },
     computed: {
       sets() {
