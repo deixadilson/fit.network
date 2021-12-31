@@ -111,7 +111,7 @@
   @media (max-width: 600px) {
     .row {
       font-size: 10px;
-      grid-template-columns: 10px auto 60px 40px 60px 95px;
+      grid-template-columns: 30px auto 60px 40px 60px 95px;
     }
   }
 </style>

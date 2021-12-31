@@ -7,16 +7,16 @@
         <div>Exercício</div>
         <div>Weight</div>
         <div>Reps</div>
-        <div>Rest Time</div>
+        <div v-if="$store.state.rest == '1'">Rest Time</div>
         <div>Actions</div>
       </header>
       <main>
         <div v-for="set in sets" :key="set.id" class="row" @drop.prevent="drop($event, set.id - 1)" @dragover.prevent @dragenter.prevent>
           <div>{{ set.id }}</div>
           <div draggable="true" @dragstart="drag($event, set.id - 1)">{{ set.exercise }}</div>
-          <div>{{ set.weight }} kg</div>
+          <div>{{ $store.state.weight == 'lb' ? Math.round(set.weight * 0.45359237) : set.weight }} {{ $store.state.weight }}</div>
           <div>{{ set.reps }}</div>
-          <div>{{ set.rest }} s</div>
+          <div v-if="$store.state.rest == '1'">{{ set.rest }} s</div>
           <div>
             <button type="button" @click="editSet(set)" title="Edit Set">🖊</button>
             <button type="button" @click="deleteSet(set)" title="Delete Set">❌</button>

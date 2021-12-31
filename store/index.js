@@ -1,4 +1,6 @@
 export const state = () => ({
+  rest: 1,
+  weight: 'kg',
   sessions: [],
   sets: [],
   measurements: [],
@@ -77,6 +79,15 @@ export const mutations = {
   },
   loadMeasurements(state, measurements) {
     state.measurements = measurements;
+  },
+  saveSettings(state, {weight, rest}) {
+    state.weight = weight;
+    state.rest = rest;
+    localStorage.setItem('settings', `{"weight": "${weight}","rest":"${rest}"}`);
+  },
+  loadSettings(state, settings) {
+    state.weight = settings.weight;
+    state.rest = settings.rest;
   },
   setShowModal(state, modal) {
     state.showModal = modal;

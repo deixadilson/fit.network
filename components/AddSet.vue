@@ -14,15 +14,15 @@
           </div>
           <div>
             <label for="weight">Weight</label>
-            <input type="number" id="weight" name="weight" min="0" v-model.number="weight"/> kg
+            <input type="number" id="weight" name="weight" min="0" v-model.number="weight"/> {{ $store.state.weight }}
           </div>
           <div>
             <label for="reps">Repetitions</label>
             <input type="number" id="reps" name="reps" min="1" v-model.number="reps"/>
           </div>
-          <div>
+          <div v-if="$store.state.rest == '1'">
             <label for="rest">Rest Time</label>
-            <input type="number" id="rest" name="rest" min="0.0" v-model.number="rest"/> seconds
+            <input type="number" id="rest" name="rest" min="0" v-model.number="rest"/> seconds
           </div>
           <div>
             <label for="comment">Comment</label>
@@ -46,7 +46,7 @@
         action: this.$store.state.action,
         session: +this.$route.params.id,
         exercise: this.$store.state.ref?.exercise,
-        weight: this.$store.state.ref?.weight,
+        weight: this.$store.state.weight == 'lb' ? Math.round(this.$store.state.ref?.weight * 0.45359237) : this.$store.state.ref?.weight,
         reps: this.$store.state.ref?.reps,
         rest: this.$store.state.ref?.rest,
         comment: this.$store.state.ref?.comment
@@ -62,12 +62,15 @@
       document.forms[0].exercise.focus();
     },
     methods: {
+      toKg(weight) {
+        return this.$store.state.weight == 'lb' ? Math.round(weight / 0.45359237) : weight
+      },
       add() {
         const set = {
           id: this.$store.getters.setsInSession(this.session).length + 1,
           session: this.session,
           exercise: this.exercise,
-          weight: this.weight,
+          weight: this.toKg(this.weight),
           reps: this.reps,
           rest: this.rest,
           comment: this.comment
@@ -80,7 +83,7 @@
           id: this.$store.state.ref.id,
           session: this.session,
           exercise: this.exercise,
-          weight: this.weight,
+          weight: this.toKg(this.weight),
           reps: this.reps,
           rest: this.rest,
           comment: this.comment

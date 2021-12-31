@@ -1,10 +1,14 @@
 <template>
-  <div class="wrapper">
-    <div class="container">
-      <NuxtLink to="/">Workouts</NuxtLink>
-      <NuxtLink to="/month">Calendar</NuxtLink>
-      <NuxtLink to="/measurements">Measurements</NuxtLink>
+  <div>
+    <div class="wrapper">
+      <div class="container">
+        <NuxtLink to="/">Workouts</NuxtLink>
+        <NuxtLink to="/month">Calendar</NuxtLink>
+        <NuxtLink to="/measurements">Measures</NuxtLink>
+        <button type="button" @click="settings()">Settings</button>
+      </div>
     </div>
+    <Settings v-if="showModal == 'Settings'"/>
   </div>
 </template>
 
@@ -21,19 +25,36 @@
         const measurements = JSON.parse(localStorage.getItem('measurements'));
         this.$store.commit('loadMeasurements', measurements);
       }
+      if(!this.$store.settings && localStorage.getItem('settings')) {
+        const settings = JSON.parse(localStorage.getItem('settings'));
+        this.$store.commit('loadSettings', settings);
+      }
+    },
+    computed: {
+      showModal() {
+        return this.$store.state.showModal;
+      }
+    },
+    methods: {
+      settings() {
+        this.$store.commit('setShowModal', 'Settings');
+      }
     }
   }
 </script>
 
 <style scoped>
-  a {
+  a, button {
     color: #eee;
+    font-size: 14px;
     background: #555;
     padding: 5px 10px;
     margin-right: 5px;
     border-radius: 5px;
+    border: 0;
+    cursor: pointer;
   }
-  a:hover {
+  a:hover, button:hover {
     background: #777;
   }
   .wrapper {
