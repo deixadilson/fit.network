@@ -11,7 +11,7 @@ export const state = () => ({
 
 export const mutations = {
   addSession(state, session) {
-    state.sessions.push(session);
+    state.sessions.unshift(session);
     localStorage.setItem('sessions', JSON.stringify(state.sessions));
   },
   editSession(state, session) {
@@ -28,7 +28,7 @@ export const mutations = {
     let sets = state.sets.filter(set => set.session == session.id);
     const newId = Date.now();
     session.id = newId;
-    state.sessions.push(session);
+    state.sessions.unshift(session);
     sets = sets.map((set, i) => ({...set, id: i + 1, session: newId}));
     state.sets = state.sets.concat(sets);
     localStorage.setItem('sessions', JSON.stringify(state.sessions));
